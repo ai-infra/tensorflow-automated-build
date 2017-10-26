@@ -59,7 +59,7 @@ WORKDIR /
 
 RUN update-ca-certificates -f
 
-RUN git clone -b ppc-protobuf https://github.com/abdasgupta/protobuf-ppc64le.git protobuf && \
+RUN git clone -b ppc-protobuf https://github.com/ai-infra/protobuf-ppc64le.git protobuf && \
   cd protobuf && \
   ./autogen.sh && \
   ./configure --prefix=/opt/DL/protobuf && \
@@ -71,7 +71,7 @@ ENV PROTOC /opt/DL/protobuf/bin/protoc
 ENV CXXFLAGS -I/opt/DL/protobuf/include
 ENV LDFLAGS -L/opt/DL/protobuf/lib/
 
-RUN git clone -b ppc-grpc https://github.com/abdasgupta/grpc-java-ppc64le.git grpc-java && \
+RUN git clone -b ppc-grpc https://github.com/ai-infra/grpc-java-ppc64le.git grpc-java && \
    cd grpc-java && \
    ./gradlew build --info -Pprotoc=$PROTOC -PprotoInclude="/opt/DL/protobuf/include/" -PprotoLib="/opt/DL/protobuf/lib" --continue || true
 
@@ -79,7 +79,7 @@ ENV GRPC_JAVA_PLUGIN=/grpc-java/compiler/build/artifacts/java_plugin/protoc-gen-
 
 WORKDIR /
 
-RUN git clone -b ppc-bazel https://github.com/abdasgupta/bazel-ppc64le.git bazel && \
+RUN git clone -b ppc-bazel https://github.com/ai-infra/bazel-ppc64le.git bazel && \
     cd bazel && \
     echo "build --spawn_strategy=standalone --genrule_strategy=standalone" >>/tmp/.bazelrc && \
     BAZELRC=/tmp/bazelrc ./compile.sh && \
